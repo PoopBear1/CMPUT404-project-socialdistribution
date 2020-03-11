@@ -11,7 +11,6 @@ import AuthorHeader from './components/AuthorHeader';
 import {reactLocalStorage} from 'reactjs-localstorage';
 import {POST_API, CURRENT_USER_API} from "./utils/constants.js";
 
-
 const { TextArea } = Input;
 var urljoin;
 urljoin = require('url-join');
