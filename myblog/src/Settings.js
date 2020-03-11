@@ -8,7 +8,7 @@ import './components/Header.css';
 import AuthorHeader from './components/AuthorHeader';
 import cookie from 'react-cookies';
 import validateCookie from './utils/utils.js';
-import {FETCH_POST_API,AUTHOR_API} from "./utils/constants.js";
+import {TOKEN_API,AUTHOR_API} from "./utils/constants.js";
 
 class ProfileContent extends React.Component {
     constructor(props) {
@@ -29,7 +29,7 @@ class ProfileContent extends React.Component {
 
     componentDidMount() {
        validateCookie();
-        axios.get(FETCH_POST_API, 
+        axios.get(TOKEN_API, 
         { headers: { 'Authorization': 'Token ' + cookie.load('token') } }).then(res => {
             var userInfo = res.data;
             this.setState({

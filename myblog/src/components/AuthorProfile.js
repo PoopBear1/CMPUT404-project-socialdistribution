@@ -5,7 +5,7 @@ import './AuthorProfile.css'
 import axios from 'axios';
 import cookie from 'react-cookies';
 import validateCookie from '../utils/utils.js';
-
+import {AUTHOR_API,FRIEND_BOOL,FRIEND_REQUEST_API} from '../utils/constants.js';
 class AuthorProfile extends Component {
 
     constructor(props) {
@@ -29,7 +29,7 @@ class AuthorProfile extends Component {
         const headers = {
           'Authorization': 'Token '.concat(token)
         }
-        axios.get('http://localhost:8000/api/user/author/'.concat(this.props.username).concat("/"), 
+        axios.get(AUTHOR_API.concat(this.props.username).concat("/"), 
         { headers: headers}).then(res => {
             var userInfo = res.data;
             this.setState({
@@ -43,7 +43,7 @@ class AuthorProfile extends Component {
           });
 
         if (!this.props.isSelf) {
-            axios.get('http://localhost:8000/api/friend/if_friend/'.concat(this.props.username).concat("/"), 
+            axios.get(FRIEND_BOOL.concat(this.props.username).concat("/"), 
             { headers: headers}).then(res => {
                 var status = res.data.status;
                 if (status === "friend") {
@@ -66,7 +66,7 @@ class AuthorProfile extends Component {
         const headers = {
           'Authorization': 'Token '.concat(token)
         }
-        axios.post("http://localhost:8000/api/friend/friend_request/",
+        axios.post(FRIEND_REQUEST_API,
         {
             f2Id: username,
         },{headers: headers}

@@ -9,7 +9,7 @@ import cookie from 'react-cookies';
 import validateCookie from './utils/utils.js';
 import AuthorHeader from './components/AuthorHeader';
 import {reactLocalStorage} from 'reactjs-localstorage';
-import {POST_API} from "./utils/constants.js";
+import {POST_API,TOKEN_API} from "./utils/constants.js";
 
 const { TextArea } = Input;
 var urljoin;
@@ -67,7 +67,7 @@ class PostInput extends React.Component {
         
       }
       else{
-        axios.get('http://localhost:8000/api/user/author/current_user/', { headers: { 'Authorization': 'Token ' + cookie.load('token') } })
+        axios.get(TOKEN_API, { headers: { 'Authorization': 'Token ' + cookie.load('token') } })
         .then(function (response) {
             reactLocalStorage.set("urlauthorid", response.data.username);
             urljoin = require('url-join');
