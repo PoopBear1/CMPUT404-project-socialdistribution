@@ -135,8 +135,8 @@ class FriendRequest extends React.Component {
                         avatar={
                           <Avatar
                           style={{
-                            color: '#f56a00',
-                            backgroundColor: '#fde3cf',
+                            color: '#FFFFFF',
+                            backgroundColor: '#3991F7',
                           }}
                         >
                           {item.f1Id[0].toUpperCase()}

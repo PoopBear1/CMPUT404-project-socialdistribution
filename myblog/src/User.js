@@ -105,8 +105,7 @@ class User extends React.Component {
                                     <Avatar size="large"
                                         style={{
                                             color: '#FFFFFF',
-                                            backgroundColor: '#3991F7',
-                                            
+                                            backgroundColor: '#3991F7',   
                                         }}
                                     >{item.author[0].toUpperCase()}
                                     </Avatar>
