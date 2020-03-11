@@ -10,7 +10,7 @@ import {reactLocalStorage} from 'reactjs-localstorage';
 import './UserSelf.css';
 import cookie from 'react-cookies';
 import validateCookie from './utils/utils.js';
-import {POST_API,AUTHOR_API,TOKEN_API} from "./utils/constants.js";
+import {POST_API,AUTHOR_API,CURRENT_USER_API} from "./utils/constants.js";
 
 const { confirm } = Modal;
 var urlpostid = '';
@@ -46,19 +46,16 @@ class UserSelf extends React.Component {
       },
     });
   }
-
-  componentWillMount() {
-    validateCookie();
-  }
   
   componentDidMount() {
+    validateCookie();
     const token = cookie.load('token');
     const headers = {
       'Authorization': 'Token '.concat(token)
     }
     const pathArray = window.location.pathname.split('/');
-    const username = pathArray[2];
-    axios.get(TOKEN_API,
+    let username = pathArray[2];
+    axios.get(CURRENT_USER_API,
     {headers : headers}).then(res => {
         this.setState({
             currentUser: res.data.username,
@@ -110,7 +107,7 @@ class UserSelf extends React.Component {
       
       const {username, isloading, MyPostData, isSelf} = this.state;
       return(!isloading ? 
-        <view>
+        <div>
           <AuthorHeader/>
           <div className="mystyle">
               <AuthorProfile 
@@ -163,7 +160,7 @@ class UserSelf extends React.Component {
                   )}
               />
           </div>
-        </view> : null
+        </div> : null
 
       );
     }

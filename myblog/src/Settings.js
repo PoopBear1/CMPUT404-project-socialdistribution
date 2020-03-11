@@ -8,7 +8,11 @@ import './components/Header.css';
 import AuthorHeader from './components/AuthorHeader';
 import cookie from 'react-cookies';
 import validateCookie from './utils/utils.js';
-import {TOKEN_API,AUTHOR_API} from "./utils/constants.js";
+import {CURRENT_USER_API,AUTHOR_API} from "./utils/constants.js";
+
+var urljoin;
+urljoin = require('url-join');
+var profileUrl='';
 
 class ProfileContent extends React.Component {
     constructor(props) {
@@ -23,15 +27,12 @@ class ProfileContent extends React.Component {
         }
     }
 
-    componentWillMount() {
-      validateCookie();
-    }
-
     componentDidMount() {
        validateCookie();
-        axios.get(TOKEN_API, 
+        axios.get(CURRENT_USER_API, 
         { headers: { 'Authorization': 'Token ' + cookie.load('token') } }).then(res => {
             var userInfo = res.data;
+            profileUrl = urljoin("/author", res.data.username);
             this.setState({
               userName: userInfo.username,
               email: userInfo.email,
@@ -56,7 +57,7 @@ class ProfileContent extends React.Component {
             },{ headers: { 'Authorization': 'Token ' + cookie.load('token') } }
             )
             .then(function (response) {
-              document.location.replace("/author/profile")
+              document.location.replace(profileUrl)
             })
             .catch(function (error) {
               console.log(error);
