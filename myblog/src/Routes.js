@@ -38,7 +38,7 @@ const Routes = () => {
       {/* <Route exact path={profileUrl} component={UserSelf} /> */}
       <Route exact path="/author/:authorid" component={UserSelf} />
       <Route path="/settings" component={Settings} />
-      <Route path={commentUrl} component={Comments} /> 
+      <Route path="/posts/:postid/comments" component={Comments} /> 
       {/* <Route path={friendsListUrl} component={FriendsList} /> */}
       <Route path="/author/:authorid/friends" component={FriendsList} />
       <Route path={friendsRequestUrl} component={FriendRequest} />
