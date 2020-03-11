@@ -7,7 +7,7 @@ import AuthorHeader from './components/AuthorHeader';
 import axios from 'axios';
 import cookie from 'react-cookies';
 import validateCookie from './utils/utils.js';
-import {FRIEND_API,FETCH_POST_API} from "./utils/constants.js";
+import {FRIEND_API,TOKEN_API} from "./utils/constants.js";
 const { confirm } = Modal;
 
 class FriendsList extends React.Component {
@@ -45,7 +45,7 @@ class FriendsList extends React.Component {
     const headers = {
       'Authorization': 'Token '.concat(token)
     }
-    axios.get(FETCH_POST_API,{headers : headers})
+    axios.get(TOKEN_API,{headers : headers})
     .then(res => {
       this.setState({
         current_user:res.data['username'],

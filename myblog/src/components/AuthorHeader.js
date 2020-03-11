@@ -5,7 +5,7 @@ import './Header.css';
 import cookie from 'react-cookies';
 import axios from 'axios';
 import {reactLocalStorage} from 'reactjs-localstorage';
-
+import {TOKEN_API} from '../utils/constants.js';
 
 const { Header } = Layout;
 const { Search } = Input;
@@ -27,7 +27,7 @@ class AuthorHeader extends React.Component {
     }
 
     handleMyProfile = () => {
-        axios.get('http://localhost:8000/api/user/author/current_user/', { headers: { 'Authorization': 'Token ' + cookie.load('token') } })
+        axios.get(TOKEN_API, { headers: { 'Authorization': 'Token ' + cookie.load('token') } })
         .then(function (response) {
             reactLocalStorage.set("urlauthorid", response.data.username);
             urljoin = require('url-join');
@@ -42,7 +42,7 @@ class AuthorHeader extends React.Component {
     }
 
     handleFriendsList = () => {
-        axios.get('http://localhost:8000/api/user/author/current_user/', { headers: { 'Authorization': 'Token ' + cookie.load('token') } })
+        axios.get(TOKEN_API, { headers: { 'Authorization': 'Token ' + cookie.load('token') } })
         .then(function (response) {
             reactLocalStorage.set("urlauthorid", response.data.username);
             urljoin = require('url-join');
@@ -56,7 +56,7 @@ class AuthorHeader extends React.Component {
     }
 
     handleFriendRequest = () => {
-        axios.get('http://localhost:8000/api/user/author/current_user/', { headers: { 'Authorization': 'Token ' + cookie.load('token') } })
+        axios.get(TOKEN_API, { headers: { 'Authorization': 'Token ' + cookie.load('token') } })
         .then(function (response) {
             reactLocalStorage.set("urlauthorid", response.data.username);
             urljoin = require('url-join');
