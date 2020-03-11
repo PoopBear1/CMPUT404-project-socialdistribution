@@ -16,7 +16,6 @@ const { confirm } = Modal;
 var urlpostid = '';
 var urljoin;
 var commentUrl='';
-var profileUrl='';
 
 class UserSelf extends React.Component {
   state = {
@@ -36,9 +35,7 @@ class UserSelf extends React.Component {
       onOk() {
         axios.delete(POST_API + String(postId) + '/', { headers: { 'Authorization': 'Token ' + cookie.load('token') } })
         .then(function () {
-          urljoin = require('url-join');
-          profileUrl = urljoin("/author", String(author));
-          document.location.replace(profileUrl);
+          document.location.replace("author/:authorid");
         })
       },
       onCancel() {
@@ -94,8 +91,8 @@ class UserSelf extends React.Component {
   }
 
   handleEdit = (postId) => {
-    reactLocalStorage.set("postid", postId);
-    document.location.replace("/postedit");
+    //reactLocalStorage.set("postid", postId);
+    document.location.replace("/posts/".concat(postId).concat("/edit"));
   }
 
   handleComment = (postId) => {

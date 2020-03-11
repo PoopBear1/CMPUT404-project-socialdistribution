@@ -16,17 +16,6 @@ import NodesPage from './NodesPage';
 import AuthorPage from './AuthorPage';
 import ProfilePage from './ProfilePage';
 import AddNodesPage from './AddNodesPage';
-import {reactLocalStorage} from 'reactjs-localstorage';
-
-var urlpostid = reactLocalStorage.get("urlpostid");
-var urlauthorid = reactLocalStorage.get("urlauthorid");
-
-var urljoin = require('url-join');
-var commentUrl = urljoin("/posts", String(urlpostid), "/comments");
-var profileUrl = urljoin("/author", String(urlauthorid));
-var friendsListUrl = urljoin("/author", String(urlauthorid), "/friends");
-var friendsRequestUrl = urljoin("/author", String(urlauthorid), "/friendrequest");
-
 
 const Routes = () => {
   return (
@@ -35,13 +24,13 @@ const Routes = () => {
       <Route exact path="/" component={Login} />
       <Route path="/register" component={Register} />
       <Route path="/author/posts" component={User} />
-      <Route exact path={profileUrl} component={UserSelf} />
+      <Route exact path="/author/:authorid" component={UserSelf} />
       <Route path="/settings" component={Settings} />
-      <Route path={commentUrl} component={Comments} /> 
-      <Route path={friendsListUrl} component={FriendsList} />
-      <Route path={friendsRequestUrl} component={FriendRequest} />
-      <Route path="/postinput" component={PostInput} />
-      <Route path="/postedit" component={PostEdit} />
+      <Route path="/posts/:postid/comments" component={Comments} /> 
+      <Route path="/author/:authorid/friends" component={FriendsList} />
+      <Route path="/author/:authorid/friendrequest" component={FriendRequest} />
+      <Route path="/new_post" component={PostInput} />
+      <Route path="/posts/:postid/edit" component={PostEdit} />
       
       {/*admin*/}
       <Route path="/sign-up-request" component={SignUpRequestPage} />
