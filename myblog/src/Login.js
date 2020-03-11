@@ -70,7 +70,9 @@ class NormalLoginForm extends React.Component {
               placeholder="Password"
             />,
           )}
-          {getFieldDecorator('remember', {
+        </Form.Item>
+        <Form.Item>
+        {getFieldDecorator('remember', {
             valuePropName: 'checked',
             initialValue: true,
           })(<Checkbox>Remember me</Checkbox>)}

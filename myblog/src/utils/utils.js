@@ -1,6 +1,6 @@
 import cookie from 'react-cookies';
 import axios from 'axios' ;
-import {TOKEN_API} from './constants.js';
+import {CURRENT_USER_API} from './constants.js';
 
 function validateCookie () {
     if(cookie.load('token')){
@@ -8,7 +8,7 @@ function validateCookie () {
         const headers = {
             'Authorization': 'Token '.concat(token)
           }
-          axios.get(TOKEN_API,{headers : headers})
+          axios.get(CURRENT_USER_API,{headers : headers})
           .then(res => {
             return true;
           })
