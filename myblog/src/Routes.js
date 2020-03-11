@@ -35,10 +35,12 @@ const Routes = () => {
       <Route exact path="/" component={Login} />
       <Route path="/register" component={Register} />
       <Route path="/author/posts" component={User} />
-      <Route exact path={profileUrl} component={UserSelf} />
+      {/* <Route exact path={profileUrl} component={UserSelf} /> */}
+      <Route exact path="/author/:authorid" component={UserSelf} />
       <Route path="/settings" component={Settings} />
       <Route path={commentUrl} component={Comments} /> 
-      <Route path={friendsListUrl} component={FriendsList} />
+      {/* <Route path={friendsListUrl} component={FriendsList} /> */}
+      <Route path="/author/:authorid/friends" component={FriendsList} />
       <Route path={friendsRequestUrl} component={FriendRequest} />
       <Route path="/postinput" component={PostInput} />
       <Route path="/postedit" component={PostEdit} />
