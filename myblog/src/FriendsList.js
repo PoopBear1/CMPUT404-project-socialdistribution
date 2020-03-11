@@ -8,6 +8,7 @@ import axios from 'axios';
 import cookie from 'react-cookies';
 import validateCookie from './utils/utils.js';
 import {FRIEND_API,CURRENT_USER_API} from "./utils/constants.js";
+
 const { confirm } = Modal;
 
 var urljoin;
@@ -45,6 +46,7 @@ class FriendsList extends React.Component {
     const headers = {
       'Authorization': 'Token '.concat(token)
     }
+    
     axios.get(CURRENT_USER_API,{headers : headers})
     .then(res => {
       this.setState({
