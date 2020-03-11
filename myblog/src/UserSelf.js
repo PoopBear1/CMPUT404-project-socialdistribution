@@ -90,6 +90,7 @@ class UserSelf extends React.Component {
   }
 
   handleEdit = (postId) => {
+    reactLocalStorage.set("postid", postId);
     document.location.replace("/posts/".concat(postId).concat("/edit"));
   }
 

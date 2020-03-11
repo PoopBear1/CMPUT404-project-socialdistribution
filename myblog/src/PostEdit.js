@@ -128,7 +128,7 @@ class PostEdit extends React.Component {
             )
             .then(function (response) {
               reactLocalStorage.set("urlauthorid", authorid);
-              profileUrl = urljoin("/author", authorid);
+              profileUrl = urljoin("/author", authorid, "/posts");
               document.location.replace(profileUrl);
             })
             .catch(function (error) {
