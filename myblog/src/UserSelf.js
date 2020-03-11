@@ -35,7 +35,7 @@ class UserSelf extends React.Component {
       onOk() {
         axios.delete(POST_API + String(postId) + '/', { headers: { 'Authorization': 'Token ' + cookie.load('token') } })
         .then(function () {
-          document.location.replace("author/:authorid");
+          document.location.replace("/author/".concat(author));
         })
       },
       onCancel() {
@@ -85,13 +85,14 @@ class UserSelf extends React.Component {
             MyPostData: res.data,
             isloading: false,
         });
+        console.log(res.data);
+        
       }).catch((error) => {
           console.log(error);
       });
   }
 
   handleEdit = (postId) => {
-    //reactLocalStorage.set("postid", postId);
     document.location.replace("/posts/".concat(postId).concat("/edit"));
   }
 
@@ -130,7 +131,7 @@ class UserSelf extends React.Component {
                             <Button onClick={this.handleEdit.bind(this, item.id)} icon="edit" style={{left: "30%", width: "28px", height: "28px", backgroundColor: "white"}}></Button>
                             : null}
                             {isSelf ?
-                            <Button onClick={this.showDeleteConfirm.bind(this, item.id)} icon="delete" style={{left: "50%", width: "28px", height: "28px", backgroundColor: "white"}}></Button>
+                            <Button onClick={this.showDeleteConfirm.bind(this, item.id, item.author)} icon="delete" style={{left: "50%", width: "28px", height: "28px", backgroundColor: "white"}}></Button>
                             : null}
                           </span>
                           ]}
