@@ -58,7 +58,6 @@ class User extends React.Component {
   handleComment = (postId) => {
     reactLocalStorage.set("postid", postId);
     urlpostid = reactLocalStorage.set("urlpostid", postId);
-    
     commentUrl = urljoin("/posts", urlpostid, "/comments");
     document.location.replace(commentUrl);
   }
