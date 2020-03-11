@@ -14,6 +14,7 @@ import {POST_API} from "./utils/constants.js";
 
 var urlpostid = '';
 var urljoin;
+urljoin = require('url-join');
 var commentUrl='';
 
 class User extends React.Component {
@@ -28,11 +29,8 @@ class User extends React.Component {
     }
   }
 
-  componentWillMount() {
-    validateCookie();
-  }
-
   componentDidMount() {
+    validateCookie();
     this.fetchData();
   };
 
@@ -51,14 +49,13 @@ class User extends React.Component {
   handleComment = (postId) => {
     reactLocalStorage.set("postid", postId);
     urlpostid = reactLocalStorage.set("urlpostid", postId);
-    urljoin = require('url-join');
     commentUrl = urljoin("/posts", urlpostid, "/comments");
     document.location.replace(commentUrl);
   }
   
   render() {  
       return(!this.state.isloading ? 
-        <view>
+        <div>
           <AuthorHeader/>
           <div className="mystyle">
               <List
@@ -101,8 +98,7 @@ class User extends React.Component {
                   )}
               />
           </div>
-
-        </view> : null
+        </div> : null
       );
     }
 }

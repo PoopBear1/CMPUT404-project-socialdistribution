@@ -1,14 +1,13 @@
 import React from 'react'
-import { Layout, Menu, Icon, Input } from 'antd';
+import { Layout, Menu, Icon } from 'antd';
 import 'antd/dist/antd.css';
 import './Header.css';
 import cookie from 'react-cookies';
 import axios from 'axios';
-import {TOKEN_API} from '../utils/constants.js';
-
+import {reactLocalStorage} from 'reactjs-localstorage';
+import {CURRENT_USER_API} from "../utils/constants.js";
 
 const { Header } = Layout;
-const { Search } = Input;
 const { SubMenu } = Menu;
 
 
@@ -20,7 +19,7 @@ class AuthorHeader extends React.Component {
     }
 
     handleMyProfile = () => {
-        axios.get(TOKEN_API, { headers: { 'Authorization': 'Token ' + cookie.load('token') } })
+        axios.get(CURRENT_USER_API, { headers: { 'Authorization': 'Token ' + cookie.load('token') } })
         .then(function (response) {
             document.location.replace("/author/".concat(response.data.username).concat("/posts"));
         })
@@ -30,7 +29,7 @@ class AuthorHeader extends React.Component {
     }
 
     handleFriendsList = () => {
-        axios.get(TOKEN_API, { headers: { 'Authorization': 'Token ' + cookie.load('token') } })
+        axios.get(CURRENT_USER_API, { headers: { 'Authorization': 'Token ' + cookie.load('token') } })
         .then(function (response) {
             document.location.replace("/author/".concat(response.data.username).concat("/friends"));          
         })
@@ -40,7 +39,7 @@ class AuthorHeader extends React.Component {
     }
 
     handleFriendRequest = () => {
-        axios.get(TOKEN_API, { headers: { 'Authorization': 'Token ' + cookie.load('token') } })
+        axios.get(CURRENT_USER_API, { headers: { 'Authorization': 'Token ' + cookie.load('token') } })
         .then(function (response) {
             document.location.replace("/author/".concat(response.data.username).concat("/friendrequest"));          
         })
@@ -64,13 +63,6 @@ class AuthorHeader extends React.Component {
                                 <span>Home</span>
                             </a>
                         </Menu.Item>
-                        
-                        <Search className="search"
-                            placeholder="Search Friends"
-                            size="large"
-                            enterButton
-                        >
-                        </Search>
 
                         <Menu.Item style={{float: 'right'}} key="Logout">
                             <a href="#!" onClick={this.logout}>
