@@ -1,6 +1,6 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import { List, Button, Avatar, Icon } from 'antd';
+import { List, Avatar, Icon } from 'antd';
 import SimpleReactLightbox from "simple-react-lightbox";
 import { SRLWrapper } from "simple-react-lightbox"; 
 import './components/Header.css'
@@ -55,7 +55,7 @@ class User extends React.Component {
   
   render() {  
       return(!this.state.isloading ? 
-        <view>
+        <div>
             <AuthorHeader/>
             <div className="mystyle">
                 <List
@@ -68,7 +68,7 @@ class User extends React.Component {
                             key={item.title}
                             actions={[
                                 <span>
-                                    <a href={"/posts/".concat(item.id).concat("/comments")} style={{marginRight: 8}}><Icon type="message"/></a>{0}
+                                    <a href="#!" onClick={this.handleComment.bind(this, item.id)} style={{marginRight: 8}}><Icon type="message"/></a>{0}
                                 </span>
                             ]}
                             extra={
@@ -106,7 +106,7 @@ class User extends React.Component {
                     )}
                 />
           </div>
-        </view> : null
+        </div> : null
       );
     }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import { List, Button, Icon, Modal, Avatar} from 'antd';
+import { List, Icon, Modal, Avatar} from 'antd';
 import SimpleReactLightbox from "simple-react-lightbox";
 import { SRLWrapper } from "simple-react-lightbox"; 
 import axios from 'axios';
@@ -123,16 +123,16 @@ class UserSelf extends React.Component {
                           key={item.title}
                           actions={[
                             <span>
-                                <a href={"/posts/".concat(item.id).concat("/comments")} style={{marginRight: 8}}><Icon type="message"/></a>{0}   
+                                <a href="#!" onClick={this.handleComment.bind(this, item.id)} style={{marginRight: 8}}><Icon type="message"/></a>{0}   
                             </span>, 
                             <span>
                             {isSelf ?
-                                <a onClick={this.handleEdit.bind(this, item.id)} style={{marginRight: 8}}><Icon type="edit"/></a>
+                                <a href="#!" onClick={this.handleEdit.bind(this, item.id)} style={{marginRight: 8}}><Icon type="edit"/></a>
                             : null}
                             </span>,
                             <span>
                             {isSelf ?
-                                <a onClick={this.showDeleteConfirm.bind(this, item.id, item.author)} style={{marginRight: 8}}><Icon type="delete"/></a>
+                                <a href="#!" onClick={this.showDeleteConfirm.bind(this, item.id, item.author)} style={{marginRight: 8}}><Icon type="delete"/></a>
                             : null}
                             </span>,
                         //   <span>
@@ -175,7 +175,7 @@ class UserSelf extends React.Component {
                             >{item.author[0].toUpperCase()}
                             </Avatar>
                         }
-                            title={<a href={"/author/".concat(item.author)} style={{color: '#031528'}}>{item.author}</a>}
+                            title={<a href={"/author/".concat(item.author).concat("/posts")} style={{color: '#031528'}}>{item.author}</a>}
                             description={item.published}
                       />
                       {item.content}                      

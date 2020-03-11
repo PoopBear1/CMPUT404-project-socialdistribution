@@ -4,7 +4,6 @@ import 'antd/dist/antd.css';
 import './Header.css';
 import cookie from 'react-cookies';
 import axios from 'axios';
-import {reactLocalStorage} from 'reactjs-localstorage';
 import {CURRENT_USER_API} from "../utils/constants.js";
 
 const { Header } = Layout;

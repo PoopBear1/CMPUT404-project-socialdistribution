@@ -11,9 +11,6 @@ import {FRIEND_REQUEST_API,CURRENT_USER_API} from "./utils/constants.js";
 
 const { confirm } = Modal;
 
-var urljoin;
-urljoin = require('url-join');
-
 class FriendRequest extends React.Component {
   state = {
     initLoading: true,

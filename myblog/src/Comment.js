@@ -71,7 +71,7 @@ class Comments extends React.Component {
       };
 
         return(
-          <view>
+          <div>
               <AuthorHeader/>
               <div className={'comment'} style={{justifyContent:'center', padding: '2%', width:'100%'}} >
               <Form >
@@ -127,7 +127,7 @@ class Comments extends React.Component {
                 </Form.Item>
               </Form>
             </div>
-        </view>    
+        </div>    
 
         )
 
