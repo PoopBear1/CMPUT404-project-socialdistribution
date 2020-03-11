@@ -9,6 +9,7 @@ import AuthorHeader from './components/AuthorHeader';
 import cookie from 'react-cookies';
 import validateCookie from './utils/utils.js';
 import {TOKEN_API,AUTHOR_API} from "./utils/constants.js";
+var authorid='';
 
 class ProfileContent extends React.Component {
     constructor(props) {
@@ -39,6 +40,7 @@ class ProfileContent extends React.Component {
               github: userInfo.github,
               bio: userInfo.bio
             });
+            authorid = res.data.username;
           }).catch((error) => {
             console.log(error);
           });
@@ -56,7 +58,7 @@ class ProfileContent extends React.Component {
             },{ headers: { 'Authorization': 'Token ' + cookie.load('token') } }
             )
             .then(function (response) {
-              document.location.replace("/author/profile")
+              document.location.replace("/author/".concat(authorid).concat("/posts"));
             })
             .catch(function (error) {
               console.log(error);

@@ -35,7 +35,7 @@ class UserSelf extends React.Component {
       onOk() {
         axios.delete(POST_API + String(postId) + '/', { headers: { 'Authorization': 'Token ' + cookie.load('token') } })
         .then(function () {
-          document.location.replace("/author/".concat(author));
+          document.location.replace("/author/".concat(author).concat("/posts"));
         })
       },
       onCancel() {

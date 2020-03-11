@@ -22,7 +22,7 @@ class AuthorHeader extends React.Component {
     handleMyProfile = () => {
         axios.get(TOKEN_API, { headers: { 'Authorization': 'Token ' + cookie.load('token') } })
         .then(function (response) {
-            document.location.replace("/author/".concat(response.data.username));
+            document.location.replace("/author/".concat(response.data.username).concat("/posts"));
         })
         .catch(function (error) {
           console.log(error);

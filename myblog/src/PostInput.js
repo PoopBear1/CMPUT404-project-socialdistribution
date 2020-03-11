@@ -71,7 +71,7 @@ class PostInput extends React.Component {
         .then(function (response) {
             reactLocalStorage.set("urlauthorid", response.data.username);
             urljoin = require('url-join');
-            profileUrl = urljoin("/author", response.data.username);
+            profileUrl = urljoin("/author", response.data.username, "/posts");
         })
         .catch(function (error) {
           console.log(error);
