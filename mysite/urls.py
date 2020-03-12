@@ -23,5 +23,5 @@ urlpatterns = [
     path("api/friend/", include("friend.urls")),
     path("api/node/", include("node.urls")),
     path("api/comment/", include("comment.urls")),
-    # re_path(".*", TemplateView.as_view(template_name="index.html")),
+    re_path(".*", TemplateView.as_view(template_name="index.html")),
 ]
