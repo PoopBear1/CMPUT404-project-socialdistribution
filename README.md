@@ -22,12 +22,12 @@ All text is licensed under the CC-BY-SA 4.0 http://creativecommons.org/licenses/
 
 Contributors:
 
-    Devin Dai 
+* Devin Dai
 
-    Isaac Zhang
+* Isaac Zhang
 
-    Qiaoyan Zhang
+* Qiaoyan Zhang
 
-    Yuan Wang
+* Yuan Wang
 
-    Zhonghao Lu
+* Zhonghao Lu
