@@ -27,7 +27,7 @@ SECRET_KEY = "*nrwg9l-r03ndz_3s9&p$^bcyzs!o8cg=p_hxqbh!f_vvh!+wr"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["deploy-test-2.herokuapp.com", "127.0.0.1"]
+ALLOWED_HOSTS = ["spongebook.herokuapp.com/", "127.0.0.1"]
 
 
 # Application definition
@@ -137,7 +137,7 @@ USE_TZ = True
 
 # In our case, because the React development server will be running at http://localhost:3000,
 # we will add new CORS_ORIGIN_ALLOW_ALL = False and CORS_ORIGIN_WHITELIST('localhost:3000',
-# "https://deploy-test-2.herokuapp.com/",)
+# "https://spongebook.herokuapp.com",)
 
 STATIC_URL = "/static/"
 # Referenced from http://whitenoise.evans.io/en/stable/django.html
@@ -149,7 +149,7 @@ CORS_ORIGIN_ALLOW_ALL = False
 
 CORS_ORIGIN_WHITELIST = (
     "http://localhost:3000",
-    "https://deploy-test-2.herokuapp.com",
+    "https://spongebook.herokuapp.com",
 )
 
 CORS_ALLOW_HEADERS = [

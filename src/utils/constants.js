@@ -1,5 +1,5 @@
 
-const HOST = "to be changed to heroku";
+const HOST = "https://spongebook.herokuapp.com";
 export const LOGIN_API = HOST + "/api/user/login/";
 export const REGISTER_API = HOST + "/api/user/signup/";
 export const POST_API = HOST + "/api/post/";
