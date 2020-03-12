@@ -12,6 +12,7 @@ import {POST_API}  from "./utils/constants.js";
 const { TextArea } = Input;
 var id = '';
 var urljoin;
+urljoin = require('url-join');
 var profileUrl='';
 var authorid='';
 
@@ -88,11 +89,8 @@ class PostEdit extends React.Component {
       this.setState({ fileList });
     }
 
-    componentWillMount() {
-      validateCookie();
-    }
-
     componentDidMount() {
+        validateCookie();
         id = reactLocalStorage.get("postid");
         axios.get(POST_API + String(id) + '/', { headers: { 'Authorization': 'Token ' + cookie.load('token')}})
         .then(res => {
@@ -130,8 +128,7 @@ class PostEdit extends React.Component {
             )
             .then(function (response) {
               reactLocalStorage.set("urlauthorid", authorid);
-              urljoin = require('url-join');
-              profileUrl = urljoin("/author", authorid);
+              profileUrl = urljoin("/author", authorid, "/posts");
               document.location.replace(profileUrl);
             })
             .catch(function (error) {

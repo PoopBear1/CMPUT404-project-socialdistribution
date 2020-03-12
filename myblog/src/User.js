@@ -13,10 +13,9 @@ import {reactLocalStorage} from 'reactjs-localstorage';
 import {POST_API} from "./utils/constants.js";
 
 var urlpostid = '';
-var urlauthorid = '';
 var urljoin;
+urljoin = require('url-join');
 var commentUrl='';
-var profileUrl='';
 
 class User extends React.Component {
 
@@ -30,11 +29,8 @@ class User extends React.Component {
     }
   }
 
-  componentWillMount() {
-    validateCookie();
-  }
-
   componentDidMount() {
+    validateCookie();
     this.fetchData();
   };
 
@@ -50,17 +46,9 @@ class User extends React.Component {
       });
   }
 
-  handleAuthorClick = (author) => {
-    urlauthorid = reactLocalStorage.set("urlauthorid", author);
-    urljoin = require('url-join');
-    profileUrl = urljoin("/author", urlauthorid);
-    document.location.replace(profileUrl);
-  }
-
   handleComment = (postId) => {
     reactLocalStorage.set("postid", postId);
     urlpostid = reactLocalStorage.set("urlpostid", postId);
-    urljoin = require('url-join');
     commentUrl = urljoin("/posts", urlpostid, "/comments");
     document.location.replace(commentUrl);
   }
@@ -110,7 +98,7 @@ class User extends React.Component {
                                     >{item.author[0].toUpperCase()}
                                     </Avatar>
                                 }
-                                title={<a href={"/author/".concat(item.author)} style={{color: '#031528'}}>{item.author}</a>}
+                                title={<a href={"/author/".concat(item.author).concat("/posts")} style={{color: '#031528'}}>{item.author}</a>}
                                 description={item.published}
                             />
                             {item.content}

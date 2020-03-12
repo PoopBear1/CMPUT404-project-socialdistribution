@@ -9,10 +9,11 @@ import cookie from 'react-cookies';
 import validateCookie from './utils/utils.js';
 import AuthorHeader from './components/AuthorHeader';
 import {reactLocalStorage} from 'reactjs-localstorage';
-import {POST_API,TOKEN_API} from "./utils/constants.js";
+import {POST_API, CURRENT_USER_API} from "./utils/constants.js";
 
 const { TextArea } = Input;
 var urljoin;
+urljoin = require('url-join');
 var profileUrl='';
 
 
@@ -67,11 +68,11 @@ class PostInput extends React.Component {
         
       }
       else{
-        axios.get(TOKEN_API, { headers: { 'Authorization': 'Token ' + cookie.load('token') } })
+        axios.get(CURRENT_USER_API, { headers: { 'Authorization': 'Token ' + cookie.load('token') } })
         .then(function (response) {
             reactLocalStorage.set("urlauthorid", response.data.username);
             urljoin = require('url-join');
-            profileUrl = urljoin("/author", response.data.username);
+            profileUrl = urljoin("/author", response.data.username, "/posts");
         })
         .catch(function (error) {
           console.log(error);

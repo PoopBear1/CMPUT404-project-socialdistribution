@@ -31,8 +31,10 @@ class NormalLoginForm extends React.Component {
               cookie.save('token', response.data['key'], { path: '/' })
               document.location.replace("/author/posts")
           }).catch((error) => {
-              let msg = JSON.parse(error.response.request.response);
-              message.error(msg['non_field_errors'][0])
+              if(error.response){
+                let msg = JSON.parse(error.response.request.response);
+                message.error(msg['non_field_errors'][0])
+              }else console.log(error);
           });
       }
     })
@@ -70,7 +72,9 @@ class NormalLoginForm extends React.Component {
               placeholder="Password"
             />,
           )}
-          {getFieldDecorator('remember', {
+        </Form.Item>
+        <Form.Item>
+        {getFieldDecorator('remember', {
             valuePropName: 'checked',
             initialValue: true,
           })(<Checkbox>Remember me</Checkbox>)}

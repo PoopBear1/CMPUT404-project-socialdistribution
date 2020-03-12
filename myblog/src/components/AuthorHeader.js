@@ -1,25 +1,17 @@
 import React from 'react'
-import { Layout, Menu, Icon, Input } from 'antd';
+import { Layout, Menu, Icon } from 'antd';
 import 'antd/dist/antd.css';
 import './Header.css';
 import cookie from 'react-cookies';
 import axios from 'axios';
 import {reactLocalStorage} from 'reactjs-localstorage';
-import {TOKEN_API} from '../utils/constants.js';
+import {CURRENT_USER_API} from "../utils/constants.js";
 
 const { Header } = Layout;
-const { Search } = Input;
 const { SubMenu } = Menu;
-var urljoin;
-var profileUrl='';
-var friendsListUrl='';
-var friendsRequestUrl='';
+
 
 class AuthorHeader extends React.Component {
-
-    state={
-        authorid:'',
-    }
 
     logout = () => {
         cookie.remove('token', { path: '/' })
@@ -27,46 +19,33 @@ class AuthorHeader extends React.Component {
     }
 
     handleMyProfile = () => {
-        axios.get(TOKEN_API, { headers: { 'Authorization': 'Token ' + cookie.load('token') } })
+        axios.get(CURRENT_USER_API, { headers: { 'Authorization': 'Token ' + cookie.load('token') } })
         .then(function (response) {
-            reactLocalStorage.set("urlauthorid", response.data.username);
-            urljoin = require('url-join');
-            profileUrl = urljoin("/author", response.data.username);
-            document.location.replace(profileUrl);
+            document.location.replace("/author/".concat(response.data.username).concat("/posts"));
         })
-
         .catch(function (error) {
           console.log(error);
         });
-  
     }
 
     handleFriendsList = () => {
-        axios.get(TOKEN_API, { headers: { 'Authorization': 'Token ' + cookie.load('token') } })
+        axios.get(CURRENT_USER_API, { headers: { 'Authorization': 'Token ' + cookie.load('token') } })
         .then(function (response) {
-            reactLocalStorage.set("urlauthorid", response.data.username);
-            urljoin = require('url-join');
-            friendsListUrl = urljoin("/author", response.data.username, "/friends");
-            document.location.replace(friendsListUrl);          
+            document.location.replace("/author/".concat(response.data.username).concat("/friends"));          
         })
         .catch(function (error) {
           console.log(error);
         });
-  
     }
 
     handleFriendRequest = () => {
-        axios.get(TOKEN_API, { headers: { 'Authorization': 'Token ' + cookie.load('token') } })
+        axios.get(CURRENT_USER_API, { headers: { 'Authorization': 'Token ' + cookie.load('token') } })
         .then(function (response) {
-            reactLocalStorage.set("urlauthorid", response.data.username);
-            urljoin = require('url-join');
-            friendsRequestUrl = urljoin("/author", response.data.username, "/friendrequest");
-            document.location.replace(friendsRequestUrl);          
+            document.location.replace("/author/".concat(response.data.username).concat("/friendrequest"));          
         })
         .catch(function (error) {
           console.log(error);
         });
-  
     }
 
     render() {
@@ -84,13 +63,6 @@ class AuthorHeader extends React.Component {
                                 <span>Home</span>
                             </a>
                         </Menu.Item>
-                        
-                        <Search className="search"
-                            placeholder="Search Friends"
-                            size="large"
-                            enterButton
-                        >
-                        </Search>
 
                         <Menu.Item style={{float: 'right'}} key="Logout">
                             <a href="#!" onClick={this.logout}>
@@ -108,25 +80,25 @@ class AuthorHeader extends React.Component {
                             }
                         >
                             <Menu.Item key="Profile">
-                                <a href="#!" onClick={this.handleFriendsList}>
+                                <a onClick={this.handleFriendsList} href="#!">
                                     <span>Friend List</span>
                                 </a>
                             </Menu.Item>
                             <Menu.Item key="AddNodes">
-                                <a href="#!" onClick={this.handleFriendRequest}>
+                                <a onClick={this.handleFriendRequest} href="#!">
                                     <span>Friend Request</span>
                                 </a>
                             </Menu.Item>
                         </SubMenu>
 
                         <Menu.Item style={{float: 'right'}} key="Postinput">
-                            <a href="/postinput">
+                            <a href="/new_post">
                                 <span>What's on your mind</span>
                             </a>
                         </Menu.Item>
 
                         <Menu.Item style={{float: 'right'}} key="MyPost">
-                            <a href="#!" onClick={this.handleMyProfile}>
+                            <a onClick={this.handleMyProfile} href="#!">
                                 <span>My Profile</span>
                             </a>
                         </Menu.Item>

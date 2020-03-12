@@ -7,10 +7,12 @@ import AuthorHeader from './components/AuthorHeader'
 import cookie from 'react-cookies';
 import axios from 'axios';
 import validateCookie from './utils/utils.js';
-import {FRIEND_REQUEST_API,TOKEN_API} from "./utils/constants.js";
+import {FRIEND_REQUEST_API,CURRENT_USER_API} from "./utils/constants.js";
+
 const { confirm } = Modal;
 
-
+var urljoin;
+urljoin = require('url-join');
 
 class FriendRequest extends React.Component {
   state = {
@@ -22,11 +24,8 @@ class FriendRequest extends React.Component {
     isloading : true
   };
 
-  componentWillMount() {
-    validateCookie();
-  }
-
   componentDidMount() {
+    validateCookie();
     this.fetchData();
   }
 
@@ -47,7 +46,8 @@ class FriendRequest extends React.Component {
     const headers = {
       'Authorization': 'Token '.concat(token)
     }
-    axios.get(TOKEN_API,{headers : headers})
+    
+    axios.get(CURRENT_USER_API,{headers : headers})
     .then(res => {
       this.setState({
         current_user:res.data['username'],
@@ -142,11 +142,12 @@ class FriendRequest extends React.Component {
                           {item.f1Id[0].toUpperCase()}
                         </Avatar>
                         }
-                        title={<a style={titlestyle} href={"/author/profile?username=".concat(item.f1Id)}>{item.f1Id}</a>}
+                        title={<a style={titlestyle} href={"/author/".concat(item.f1Id).concat("/posts")}>{item.f1Id}</a>}
+
                     />
                     </Skeleton>
-                    <Button type="primary" shape="round" size={'medium'} style={buttonstyle} onClick={() => this.showConfirm("accept","A",item.f1Id,item.id)}>Accept</Button>
-                    <Button type="danger" shape="round"size={'medium'} style={buttonstyle} onClick={() => this.showConfirm("reject","R",item.f1Id,item.id)}>Reject</Button>
+                    <Button type="primary" shape="round" size={'default'} style={buttonstyle} onClick={() => this.showConfirm("accept","A",item.f1Id,item.id)}>Accept</Button>
+                    <Button type="danger" shape="round"size={'default'} style={buttonstyle} onClick={() => this.showConfirm("reject","R",item.f1Id,item.id)}>Reject</Button>
                 </List.Item>
                 )}
             />

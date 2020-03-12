@@ -10,13 +10,12 @@ import {reactLocalStorage} from 'reactjs-localstorage';
 import './UserSelf.css';
 import cookie from 'react-cookies';
 import validateCookie from './utils/utils.js';
-import {POST_API,AUTHOR_API,TOKEN_API} from "./utils/constants.js";
+import {POST_API,AUTHOR_API,CURRENT_USER_API} from "./utils/constants.js";
 
 const { confirm } = Modal;
 var urlpostid = '';
 var urljoin;
 var commentUrl='';
-var profileUrl='';
 
 class UserSelf extends React.Component {
   state = {
@@ -36,9 +35,7 @@ class UserSelf extends React.Component {
       onOk() {
         axios.delete(POST_API + String(postId) + '/', { headers: { 'Authorization': 'Token ' + cookie.load('token') } })
         .then(function () {
-          urljoin = require('url-join');
-          profileUrl = urljoin("/author", String(author));
-          document.location.replace(profileUrl);
+          document.location.replace("/author/".concat(author).concat("/posts"));
         })
       },
       onCancel() {
@@ -46,19 +43,16 @@ class UserSelf extends React.Component {
       },
     });
   }
-
-  componentWillMount() {
-    validateCookie();
-  }
   
   componentDidMount() {
+    validateCookie();
     const token = cookie.load('token');
     const headers = {
       'Authorization': 'Token '.concat(token)
     }
     const pathArray = window.location.pathname.split('/');
-    const username = pathArray[2];
-    axios.get(TOKEN_API,
+    let username = pathArray[2];
+    axios.get(CURRENT_USER_API,
     {headers : headers}).then(res => {
         this.setState({
             currentUser: res.data.username,
@@ -88,6 +82,8 @@ class UserSelf extends React.Component {
             MyPostData: res.data,
             isloading: false,
         });
+        console.log(res.data);
+        
       }).catch((error) => {
           console.log(error);
       });
@@ -95,7 +91,7 @@ class UserSelf extends React.Component {
 
   handleEdit = (postId) => {
     reactLocalStorage.set("postid", postId);
-    document.location.replace("/postedit");
+    document.location.replace("/posts/".concat(postId).concat("/edit"));
   }
 
   handleComment = (postId) => {
@@ -110,7 +106,7 @@ class UserSelf extends React.Component {
       
       const {username, isloading, MyPostData, isSelf} = this.state;
       return(!isloading ? 
-        <view>
+        <div>
           <AuthorHeader/>
           <div className="mystyle">
               <AuthorProfile 
@@ -136,7 +132,7 @@ class UserSelf extends React.Component {
                             </span>,
                             <span>
                             {isSelf ?
-                                <a onClick={this.showDeleteConfirm.bind(this, item.id)} style={{marginRight: 8}}><Icon type="delete"/></a>
+                                <a onClick={this.showDeleteConfirm.bind(this, item.id, item.author)} style={{marginRight: 8}}><Icon type="delete"/></a>
                             : null}
                             </span>,
                         //   <span>
@@ -187,7 +183,7 @@ class UserSelf extends React.Component {
                   )}
               />
           </div>
-        </view> : null
+        </div> : null
 
       );
     }

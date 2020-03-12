@@ -7,7 +7,7 @@ import AuthorHeader from './components/AuthorHeader';
 import axios from 'axios';
 import cookie from 'react-cookies';
 import validateCookie from './utils/utils.js';
-import {FRIEND_API,TOKEN_API} from "./utils/constants.js";
+import {FRIEND_API, CURRENT_USER_API} from "./utils/constants.js";
 const { confirm } = Modal;
 
 class FriendsList extends React.Component {
@@ -45,7 +45,7 @@ class FriendsList extends React.Component {
     const headers = {
       'Authorization': 'Token '.concat(token)
     }
-    axios.get(TOKEN_API,{headers : headers})
+    axios.get(CURRENT_USER_API,{headers : headers})
     .then(res => {
       this.setState({
         current_user:res.data['username'],
@@ -142,7 +142,7 @@ class FriendsList extends React.Component {
                       {item.f1Id !== current_user ? item.f1Id[0].toUpperCase() : item.f2Id[0].toUpperCase()}
                     </Avatar>
                     }
-                    title={<a style={titlestyle} href={"/author/profile?username=".concat(item.f1Id !== current_user ? item.f1Id : item.f2Id)}>{item.f1Id !== current_user ? item.f1Id : item.f2Id}</a>}
+                    title={<a style={titlestyle} href={"/author/".concat(item.f1Id !== current_user ? item.f1Id : item.f2Id).concat("/posts")}>{item.f1Id !== current_user ? item.f1Id : item.f2Id}</a>}
                 />
                 </Skeleton>
                 <div style={unfriendstyle} onClick={() => this.showDeleteConfirm(item.id,item.f1Id !== current_user ? item.f1Id : item.f2Id)}>

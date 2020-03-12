@@ -6,6 +6,7 @@ import axios from 'axios';
 import cookie from 'react-cookies';
 import validateCookie from '../utils/utils.js';
 import {AUTHOR_API,FRIEND_BOOL,FRIEND_REQUEST_API} from '../utils/constants.js';
+
 class AuthorProfile extends Component {
 
     constructor(props) {
@@ -20,11 +21,8 @@ class AuthorProfile extends Component {
 
     }
 
-    componentWillMount() {
-        validateCookie();
-    }
-
     componentDidMount() {
+        validateCookie();
         const token = cookie.load('token');
         const headers = {
           'Authorization': 'Token '.concat(token)
