@@ -36,12 +36,18 @@ class User extends React.Component {
 
   fetchData = () => {
     axios.get(POST_API, { headers: { 'Authorization': 'Token ' + cookie.load('token') } })
-      .then(res => this.setState({
-            PublicPostData : res.data,
-            authorid: res.data[0].author,
-            isloading:false 
-          })
-      ).catch(function (error) {
+      .then(res => {
+        var publicPost = res.data;
+        this.setState({
+            isloading: false,
+        })
+        if (publicPost) {
+            this.setState({
+                PublicPostData : publicPost,
+                authorid: publicPost[0].author,
+            })
+        }
+        }).catch(function (error) {
         console.log(error);
       });
   }
