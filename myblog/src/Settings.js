@@ -9,10 +9,7 @@ import AuthorHeader from './components/AuthorHeader';
 import cookie from 'react-cookies';
 import validateCookie from './utils/utils.js';
 import {CURRENT_USER_API,AUTHOR_API} from "./utils/constants.js";
-
-var urljoin;
-urljoin = require('url-join');
-var profileUrl='';
+var authorid='';
 
 class ProfileContent extends React.Component {
     constructor(props) {
@@ -27,12 +24,15 @@ class ProfileContent extends React.Component {
         }
     }
 
+    componentWillMount() {
+      validateCookie();
+    }
+
     componentDidMount() {
        validateCookie();
         axios.get(CURRENT_USER_API, 
         { headers: { 'Authorization': 'Token ' + cookie.load('token') } }).then(res => {
             var userInfo = res.data;
-            profileUrl = urljoin("/author", res.data.username);
             this.setState({
               userName: userInfo.username,
               email: userInfo.email,
@@ -40,6 +40,7 @@ class ProfileContent extends React.Component {
               github: userInfo.github,
               bio: userInfo.bio
             });
+            authorid = res.data.username;
           }).catch((error) => {
             console.log(error);
           });
@@ -57,7 +58,7 @@ class ProfileContent extends React.Component {
             },{ headers: { 'Authorization': 'Token ' + cookie.load('token') } }
             )
             .then(function (response) {
-              document.location.replace(profileUrl)
+              document.location.replace("/author/".concat(authorid).concat("/posts"));
             })
             .catch(function (error) {
               console.log(error);

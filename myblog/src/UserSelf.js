@@ -16,7 +16,6 @@ const { confirm } = Modal;
 var urlpostid = '';
 var urljoin;
 var commentUrl='';
-var profileUrl='';
 
 class UserSelf extends React.Component {
   state = {
@@ -36,9 +35,7 @@ class UserSelf extends React.Component {
       onOk() {
         axios.delete(POST_API + String(postId) + '/', { headers: { 'Authorization': 'Token ' + cookie.load('token') } })
         .then(function () {
-          urljoin = require('url-join');
-          profileUrl = urljoin("/author", String(author));
-          document.location.replace(profileUrl);
+          document.location.replace("/author/".concat(author).concat("/posts"));
         })
       },
       onCancel() {
@@ -85,6 +82,8 @@ class UserSelf extends React.Component {
             MyPostData: res.data,
             isloading: false,
         });
+        console.log(res.data);
+        
       }).catch((error) => {
           console.log(error);
       });
@@ -92,7 +91,7 @@ class UserSelf extends React.Component {
 
   handleEdit = (postId) => {
     reactLocalStorage.set("postid", postId);
-    document.location.replace("/postedit");
+    document.location.replace("/posts/".concat(postId).concat("/edit"));
   }
 
   handleComment = (postId) => {
@@ -130,7 +129,7 @@ class UserSelf extends React.Component {
                             <Button onClick={this.handleEdit.bind(this, item.id)} icon="edit" style={{left: "30%", width: "28px", height: "28px", backgroundColor: "white"}}></Button>
                             : null}
                             {isSelf ?
-                            <Button onClick={this.showDeleteConfirm.bind(this, item.id)} icon="delete" style={{left: "50%", width: "28px", height: "28px", backgroundColor: "white"}}></Button>
+                            <Button onClick={this.showDeleteConfirm.bind(this, item.id, item.author)} icon="delete" style={{left: "50%", width: "28px", height: "28px", backgroundColor: "white"}}></Button>
                             : null}
                           </span>
                           ]}

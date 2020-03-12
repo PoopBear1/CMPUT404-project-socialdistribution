@@ -30,7 +30,7 @@ class Comments extends React.Component {
     console.log(error);
     });
 
-};
+  };
 
 
     handleSubmit = e => {

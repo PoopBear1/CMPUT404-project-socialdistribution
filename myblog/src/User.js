@@ -13,12 +13,9 @@ import {reactLocalStorage} from 'reactjs-localstorage';
 import {POST_API} from "./utils/constants.js";
 
 var urlpostid = '';
-var urlauthorid = '';
 var urljoin;
 urljoin = require('url-join');
 var commentUrl='';
-var profileUrl='';
-
 
 class User extends React.Component {
 
@@ -47,12 +44,6 @@ class User extends React.Component {
       ).catch(function (error) {
         console.log(error);
       });
-  }
-
-  handleAuthorClick = (author) => {
-    urlauthorid = reactLocalStorage.set("urlauthorid", author);
-    profileUrl = urljoin("/author", urlauthorid);
-    document.location.replace(profileUrl);
   }
 
   handleComment = (postId) => {
@@ -99,7 +90,7 @@ class User extends React.Component {
                       >
                       <List.Item.Meta
                         avatar={<Avatar src={'https://cdn2.iconfinder.com/data/icons/user-icon-2-1/100/user_5-15-512.png'} />}
-                        title={<a onClick={this.handleAuthorClick.bind(this, item.author)} href="#!">{item.author}</a>}
+                        title={<a href={"/author/".concat(item.author).concat("/posts")}>{item.author}</a>}
                       />
                       {item.published}<br/><br/>
                       {item.content}

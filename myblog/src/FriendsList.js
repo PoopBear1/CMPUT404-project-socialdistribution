@@ -8,11 +8,7 @@ import axios from 'axios';
 import cookie from 'react-cookies';
 import validateCookie from './utils/utils.js';
 import {FRIEND_API,CURRENT_USER_API} from "./utils/constants.js";
-
 const { confirm } = Modal;
-
-var urljoin;
-urljoin = require('url-join');
 
 class FriendsList extends React.Component {
   state = {
@@ -24,8 +20,11 @@ class FriendsList extends React.Component {
     isloading : true
   };
 
-  componentDidMount() {
+  componentWillMount() {
     validateCookie();
+  }
+
+  componentDidMount() {
     this.fetchData();
   }
 
@@ -46,7 +45,6 @@ class FriendsList extends React.Component {
     const headers = {
       'Authorization': 'Token '.concat(token)
     }
-    
     axios.get(CURRENT_USER_API,{headers : headers})
     .then(res => {
       this.setState({
@@ -144,11 +142,11 @@ class FriendsList extends React.Component {
                       {item.f1Id !== current_user ? item.f1Id[0].toUpperCase() : item.f2Id[0].toUpperCase()}
                     </Avatar>
                     }
-                    title={<a style={titlestyle} href={urljoin("/author", item.f1Id !== current_user ? item.f1Id : item.f2Id)}>{item.f1Id !== current_user ? item.f1Id : item.f2Id}</a>}
+                    title={<a style={titlestyle} href={"/author/".concat(item.f1Id !== current_user ? item.f1Id : item.f2Id).concat("/posts")}>{item.f1Id !== current_user ? item.f1Id : item.f2Id}</a>}
                 />
                 </Skeleton>
                 <div style={unfriendstyle} onClick={() => this.showDeleteConfirm(item.id,item.f1Id !== current_user ? item.f1Id : item.f2Id)}>
-                <Button type="danger" shape="round" size='default' >Unfriend</Button>
+                <Button type="danger" shape="round" size={'medium'} >Unfriend</Button>
                 </div>
             </List.Item>
             )}

@@ -142,7 +142,8 @@ class FriendRequest extends React.Component {
                           {item.f1Id[0].toUpperCase()}
                         </Avatar>
                         }
-                        title={<a style={titlestyle} href={urljoin("/author", item.f1Id)}>{item.f1Id}</a>}
+                        title={<a style={titlestyle} href={"/author/".concat(item.f1Id).concat("/posts")}>{item.f1Id}</a>}
+
                     />
                     </Skeleton>
                     <Button type="primary" shape="round" size={'default'} style={buttonstyle} onClick={() => this.showConfirm("accept","A",item.f1Id,item.id)}>Accept</Button>

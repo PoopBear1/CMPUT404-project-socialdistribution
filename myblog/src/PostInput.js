@@ -71,7 +71,8 @@ class PostInput extends React.Component {
         axios.get(CURRENT_USER_API, { headers: { 'Authorization': 'Token ' + cookie.load('token') } })
         .then(function (response) {
             reactLocalStorage.set("urlauthorid", response.data.username);
-            profileUrl = urljoin("/author", response.data.username);
+            urljoin = require('url-join');
+            profileUrl = urljoin("/author", response.data.username, "/posts");
         })
         .catch(function (error) {
           console.log(error);
