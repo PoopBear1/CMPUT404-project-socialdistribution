@@ -7,7 +7,7 @@ import AuthorHeader from './components/AuthorHeader';
 import axios from 'axios';
 import cookie from 'react-cookies';
 import validateCookie from './utils/utils.js';
-import {FRIEND_API,CURRENT_USER_API} from "./utils/constants.js";
+import {FRIEND_API, CURRENT_USER_API} from "./utils/constants.js";
 const { confirm } = Modal;
 
 class FriendsList extends React.Component {
@@ -135,8 +135,8 @@ class FriendsList extends React.Component {
                     avatar={
                       <Avatar
                       style={{
-                        color: '#f56a00',
-                        backgroundColor: '#fde3cf',
+                        color: '#FFFFFF',
+                        backgroundColor: '#3991F7',
                       }}
                     >
                       {item.f1Id !== current_user ? item.f1Id[0].toUpperCase() : item.f2Id[0].toUpperCase()}

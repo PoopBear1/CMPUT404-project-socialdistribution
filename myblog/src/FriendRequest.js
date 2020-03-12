@@ -11,9 +11,6 @@ import {FRIEND_REQUEST_API,CURRENT_USER_API} from "./utils/constants.js";
 
 const { confirm } = Modal;
 
-var urljoin;
-urljoin = require('url-join');
-
 class FriendRequest extends React.Component {
   state = {
     initLoading: true,
@@ -135,8 +132,8 @@ class FriendRequest extends React.Component {
                         avatar={
                           <Avatar
                           style={{
-                            color: '#f56a00',
-                            backgroundColor: '#fde3cf',
+                            color: '#FFFFFF',
+                            backgroundColor: '#3991F7',
                           }}
                         >
                           {item.f1Id[0].toUpperCase()}

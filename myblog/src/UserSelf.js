@@ -1,6 +1,6 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import { List, Button, Modal, Avatar} from 'antd';
+import { List, Icon, Modal, Avatar} from 'antd';
 import SimpleReactLightbox from "simple-react-lightbox";
 import { SRLWrapper } from "simple-react-lightbox"; 
 import axios from 'axios';
@@ -122,16 +122,29 @@ class UserSelf extends React.Component {
                       <List.Item
                           key={item.title}
                           actions={[
-                          <span>
-                            <Button onClick={this.handleComment.bind(this, item.id)} icon="message" style={{width: "28px", height: "28px", backgroundColor: "white"}}></Button>
-                            {0}
-                            {isSelf ? 
-                            <Button onClick={this.handleEdit.bind(this, item.id)} icon="edit" style={{left: "30%", width: "28px", height: "28px", backgroundColor: "white"}}></Button>
-                            : null}
+                            <span>
+                                <a href="#!" onClick={this.handleComment.bind(this, item.id)} style={{marginRight: 8}}><Icon type="message"/></a>{0}   
+                            </span>, 
+                            <span>
                             {isSelf ?
-                            <Button onClick={this.showDeleteConfirm.bind(this, item.id, item.author)} icon="delete" style={{left: "50%", width: "28px", height: "28px", backgroundColor: "white"}}></Button>
+                                <a href="#!" onClick={this.handleEdit.bind(this, item.id)} style={{marginRight: 8}}><Icon type="edit"/></a>
                             : null}
-                          </span>
+                            </span>,
+                            <span>
+                            {isSelf ?
+                                <a href="#!" onClick={this.showDeleteConfirm.bind(this, item.id, item.author)} style={{marginRight: 8}}><Icon type="delete"/></a>
+                            : null}
+                            </span>,
+                        //   <span>
+                        //     <Button onClick={this.handleComment.bind(this, item.id)} icon="message" style={{width: "28px", height: "28px", backgroundColor: "white"}}></Button>
+                        //     {0}
+                        //     {isSelf ? 
+                        //     <Button onClick={this.handleEdit.bind(this, item.id)} icon="edit" style={{left: "30%", width: "28px", height: "28px", backgroundColor: "white"}}></Button>
+                        //     : null}
+                        //     {isSelf ?
+                        //     <Button onClick={this.showDeleteConfirm.bind(this, item.id)} icon="delete" style={{left: "50%", width: "28px", height: "28px", backgroundColor: "white"}}></Button>
+                        //     : null}
+                        //   </span>
                           ]}
                           extra={
                             <SimpleReactLightbox>
@@ -150,10 +163,21 @@ class UserSelf extends React.Component {
                           }
                       >
                       <List.Item.Meta
-                        avatar={<Avatar src={'https://cdn2.iconfinder.com/data/icons/user-icon-2-1/100/user_5-15-512.png'} />}
-                        title={item.author}
+                        // avatar={<Avatar src={'https://cdn2.iconfinder.com/data/icons/user-icon-2-1/100/user_5-15-512.png'} />}
+                        // title={item.author}
+                        avatar={
+                            <Avatar size="large"
+                                style={{
+                                    color: '#FFFFFF',
+                                    backgroundColor: '#3991F7',
+                                    
+                                }}
+                            >{item.author[0].toUpperCase()}
+                            </Avatar>
+                        }
+                            title={<a href={"/author/".concat(item.author).concat("/posts")} style={{color: '#031528'}}>{item.author}</a>}
+                            description={item.published}
                       />
-                      {item.published}<br/><br/>
                       {item.content}                      
                       </List.Item>
                   )}
