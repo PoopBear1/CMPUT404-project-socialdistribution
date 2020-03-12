@@ -14,7 +14,7 @@ from rest_framework.permissions import (
 from friend.models import Friend
 from post.models import Post
 from post.serializers import PostSerializer
-from .serializers import AuthorSerializer
+from .serializers import AuthorSerializer, UserSerializer
 from .models import User
 from .permissions import OwnerOrAdminPermissions
 
@@ -94,3 +94,10 @@ class AuthorViewSet(viewsets.ModelViewSet):
             return Response(status=401)
         serializer = AuthorSerializer(self.request.user)
         return Response(serializer.data, status=200)
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    serializer_class = UserSerializer
+    permission_classes = [IsAdminUser]
+    queryset = User.objects.all()
+    lookup_field = "username"
