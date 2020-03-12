@@ -120,7 +120,7 @@ class PostTestCase(APITestCase):
             f"/api/post/{str(self.post3.id)}/",
             HTTP_AUTHORIZATION="Token " + self.token2.key,
         )
-        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         response = self.client.get(
             f"/api/post/{str(self.post3.id)}/",

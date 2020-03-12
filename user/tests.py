@@ -7,10 +7,16 @@ from .models import User
 
 class UserTestCase(APITestCase):
     def setUp(self):
+        self.superuser = User.objects.create_superuser(
+            username="superuser",
+            email="superuser@email.com",
+            password="passqwersuperuser",
+        )
+        self.superuser_token = Token.objects.create(user=self.superuser)
         self.user = User.objects.create_user(
             email="user1@email.com", username="user1", password="passqweruser1",
         )
-        self.token = Token.objects.create(user=self.user)
+        self.user_token = Token.objects.create(user=self.user)
 
     def test_create_user(self):
         request_1_body = {
@@ -22,12 +28,20 @@ class UserTestCase(APITestCase):
         response = self.client.post("/api/user/signup/", request_1_body)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)  # user1 created
 
-        request_2_body = {
+        request_2_body = {"is_approve": "true"}
+        response = self.client.patch(
+            f"/api/user/admin_users/{request_1_body['username']}/",
+            request_2_body,
+            HTTP_AUTHORIZATION="Token " + self.superuser_token.key,
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)  # user1 approved
+
+        request_3_body = {
             "email": request_1_body["email"],
             "password": request_1_body["password1"],
         }
-        response = self.client.post("/api/user/login/", request_2_body)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response = self.client.post("/api/user/login/", request_3_body)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)  # user1 logged in
 
     def test_username_conflict(self):
         request_body = {
@@ -59,7 +73,7 @@ class UserTestCase(APITestCase):
         response = self.client.patch(
             "/api/user/author/user1/",
             request_body,
-            HTTP_AUTHORIZATION="Token " + self.token.key,
+            HTTP_AUTHORIZATION="Token " + self.user_token.key,
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         response = response.render()
@@ -68,6 +82,7 @@ class UserTestCase(APITestCase):
 
     def test_delete_user(self):
         response = self.client.delete(
-            "/api/user/author/user1/", HTTP_AUTHORIZATION="Token " + self.token.key,
+            "/api/user/author/user1/",
+            HTTP_AUTHORIZATION="Token " + self.user_token.key,
         )
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
