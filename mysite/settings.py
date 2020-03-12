@@ -149,7 +149,7 @@ CORS_ORIGIN_ALLOW_ALL = False
 
 CORS_ORIGIN_WHITELIST = (
     "http://localhost:3000",
-    "https://deploy-test-2.herokuapp.com/",
+    "https://deploy-test-2.herokuapp.com",
 )
 
 CORS_ALLOW_HEADERS = [
