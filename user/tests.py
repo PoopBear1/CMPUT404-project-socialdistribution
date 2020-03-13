@@ -86,3 +86,11 @@ class UserTestCase(APITestCase):
             HTTP_AUTHORIZATION="Token " + self.user_token.key,
         )
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+    def test_username_list(self):
+
+        response = self.client.get(
+            "/api/user/author/username_list/",
+            HTTP_AUTHORIZATION="Token " + self.user_token.key,
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
