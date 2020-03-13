@@ -1,7 +1,7 @@
 from django.db.models import Q
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.permissions import (
@@ -95,7 +95,11 @@ class AuthorViewSet(viewsets.ModelViewSet):
         serializer = AuthorSerializer(self.request.user)
         return Response(serializer.data, status=200)
 
-
+    @action(detail=False, methods=["GET"])
+    def username_list(self, request, *args, **kwargs):
+        usernames = User.objects.filter(is_superuser=0).values_list("username",flat=True)
+        return Response({"usernames" : usernames},status=status.HTTP_200_OK)
+        
 class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     permission_classes = [IsAdminUser]
