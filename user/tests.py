@@ -42,7 +42,7 @@ class UserTestCase(APITestCase):
         }
         response = self.client.post("/api/user/login/", request_3_body)
         self.assertEqual(response.status_code, status.HTTP_200_OK)  # user1 logged in
-        
+
     def test_username_conflict(self):
         request_body = {
             "username": self.user.username,
