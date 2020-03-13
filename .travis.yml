@@ -20,6 +20,10 @@ script:
 notifications:
     email:
         recipients:
-        - zlu@ualberta.ca # to be finished when testing done
+            - isaaczhang11@gmail.com
+            - qiaoyan1@ualberta.ca
+            - wdai@ualberta.ca 
+            - wang17@ualberta.ca
+            - zlu@ualberta.ca
         on_success: never # default: change
         on_failure: always # default: always
