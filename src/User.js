@@ -37,11 +37,12 @@ class User extends React.Component {
   fetchData = () => {
     axios.get(POST_API, { headers: { 'Authorization': 'Token ' + cookie.load('token') } })
       .then(res => {
-        var publicPost = res.data;
+        var publicPost = res.data.slice().sort((a, b) => Date.parse(b.published) - Date.parse(a.published));
         this.setState({
             isloading: false,
         })
         if (publicPost) {
+            
             this.setState({
                 PublicPostData : publicPost,
                 authorid: publicPost[0].author,
