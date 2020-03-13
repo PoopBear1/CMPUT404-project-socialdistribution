@@ -82,7 +82,6 @@ class UserSelf extends React.Component {
             MyPostData: res.data,
             isloading: false,
         });
-        console.log(res.data);
         
       }).catch((error) => {
           console.log(error);

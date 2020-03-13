@@ -27,7 +27,11 @@ SECRET_KEY = "*nrwg9l-r03ndz_3s9&p$^bcyzs!o8cg=p_hxqbh!f_vvh!+wr"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["spongebook.herokuapp.com/", "127.0.0.1"]
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "spongebook.herokuapp.com",
+    "spongebook-develop.herokuapp.com",
+]
 
 
 # Application definition
@@ -150,6 +154,7 @@ CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = (
     "http://localhost:3000",
     "https://spongebook.herokuapp.com",
+    "https://spongebook-develop.herokuapp.com",
 )
 
 CORS_ALLOW_HEADERS = [
@@ -184,4 +189,7 @@ REST_AUTH_SERIALIZERS = {
     "LOGIN_SERIALIZER": "user.serializers.CustomLoginSerializer",
 }
 
-django_heroku.settings(locals())
+if "HEROKU" in os.environ:
+    django_heroku.settings(locals())
+else:
+    django_heroku.settings(locals(), test_runner=False)

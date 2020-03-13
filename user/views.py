@@ -1,7 +1,7 @@
 from django.db.models import Q
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.permissions import (
@@ -14,7 +14,7 @@ from rest_framework.permissions import (
 from friend.models import Friend
 from post.models import Post
 from post.serializers import PostSerializer
-from .serializers import AuthorSerializer
+from .serializers import AuthorSerializer, UserSerializer
 from .models import User
 from .permissions import OwnerOrAdminPermissions
 
@@ -48,14 +48,14 @@ class AuthorViewSet(viewsets.ModelViewSet):
             user_f1_ids = self.request.user.f2Ids.filter(status="A").values_list(
                 "f1Id", flat=True
             )
-            friends_usernames = list(user_f2_ids) + list(user_f1_ids)
+            friends = list(user_f2_ids) + list(user_f1_ids)
             f2_foaf = Friend.objects.filter(
-                Q(status="A") & Q(f1Id__in=list(friends_usernames))
+                Q(status="A") & Q(f1Id__in=list(friends))
             ).values_list("f2Id", flat=True)
             f1_foaf = Friend.objects.filter(
-                Q(status="A") & Q(f2Id__in=list(friends_usernames))
+                Q(status="A") & Q(f2Id__in=list(friends))
             ).values_list("f1Id", flat=True)
-            foaf = list(f1_foaf) + list(f2_foaf)
+            foaf = list(f1_foaf) + list(f2_foaf) + list(friends)
             q2_1 = Q(visibility="FOAF")
             q2_2 = Q(author__username__in=foaf)
 
@@ -76,8 +76,11 @@ class AuthorViewSet(viewsets.ModelViewSet):
                 visibleTo__contains=self.request.user.username
             )  # check if Json string contains user's email.
 
+            # q5: post's author is the user
+            q5 = Q(author=self.request.user)
+
             posts = author_posts.filter(
-                q1 | (q2_1 & q2_2) | (q3_1 & q3_2) | (q4_1 & q4_2)
+                q1 | (q2_1 & q2_2) | (q3_1 & q3_2) | (q4_1 & q4_2) | q5
             )
         else:  # anonymous user
             posts = Post.objects.filter(q1)
@@ -91,3 +94,14 @@ class AuthorViewSet(viewsets.ModelViewSet):
             return Response(status=401)
         serializer = AuthorSerializer(self.request.user)
         return Response(serializer.data, status=200)
+
+    @action(detail=False, methods=["GET"])
+    def username_list(self, request, *args, **kwargs):
+        usernames = User.objects.filter(is_superuser=0).values_list("username",flat=True)
+        return Response({"usernames" : usernames},status=status.HTTP_200_OK)
+        
+class UserViewSet(viewsets.ModelViewSet):
+    serializer_class = UserSerializer
+    permission_classes = [IsAdminUser]
+    queryset = User.objects.all()
+    lookup_field = "username"

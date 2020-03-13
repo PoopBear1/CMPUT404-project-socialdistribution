@@ -32,6 +32,10 @@ class CustomLoginSerializer(LoginSerializer):
 
 
 class AuthorSerializer(serializers.ModelSerializer):
+    """
+    This serilizer is provided for regular users (authors).
+    """
+
     url = serializers.SerializerMethodField(read_only=True)
 
     def get_url(self, obj):
@@ -48,3 +52,13 @@ class AuthorSerializer(serializers.ModelSerializer):
             "bio",
             "url",
         ]
+
+
+class UserSerializer(serializers.ModelSerializer):
+    """
+    This serializer is provided for admin users.
+    """
+
+    class Meta:
+        model = User
+        fields = "__all__"
