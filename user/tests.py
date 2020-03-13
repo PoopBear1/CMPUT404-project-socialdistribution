@@ -13,21 +13,14 @@ class UserTestCase(APITestCase):
         self.token = Token.objects.create(user=self.user)
 
     def test_create_user(self):
-        request_1_body = {
+        request_body = {
             "username": "user2",
             "email": "user2@email.com",
             "password1": "passqweruser2",
             "password2": "passqweruser2",
         }
-        response = self.client.post("/api/user/signup/", request_1_body)
+        response = self.client.post("/api/user/signup/", request_body)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)  # user1 created
-
-        request_2_body = {
-            "email": request_1_body["email"],
-            "password": request_1_body["password1"],
-        }
-        response = self.client.post("/api/user/login/", request_2_body)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_username_conflict(self):
         request_body = {
