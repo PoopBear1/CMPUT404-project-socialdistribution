@@ -1,6 +1,12 @@
 CMPUT404-project-socialdistribution
 ===================================
 
+![Build Status](https://travis-ci.org/404-SpongeBob-SquarePants/CMPUT404-project-socialdistribution.svg?branch=master)
+![Build Status](https://travis-ci.org/404-SpongeBob-SquarePants/CMPUT404-project-socialdistribution.svg?branch=develop)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
+&nbsp;&nbsp;&nbsp;&nbsp;**Master**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Develop** 
+
 CMPUT404-project-socialdistribution
 
 See project.org (plain-text/org-mode) for a description of the project.
