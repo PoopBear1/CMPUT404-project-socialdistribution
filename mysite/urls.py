@@ -23,5 +23,6 @@ urlpatterns = [
     path("api/friend/", include("friend.urls")),
     path("api/node/", include("node.urls")),
     path("api/comment/", include("comment.urls")),
-    re_path(".*", TemplateView.as_view(template_name="index.html")),
+    # avoid use "^(?:.*)/?$", since "?" will compromise urls without traling slash
+    re_path("^(?:.*)/$", TemplateView.as_view(template_name="index.html")),
 ]
