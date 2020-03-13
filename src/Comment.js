@@ -24,7 +24,6 @@ class Comments extends React.Component {
     .then(res => {
       const getComment = res.data;
       this.setState({commentData: getComment});
-      console.log(this.state.commentData);
     })
     .catch(function (error) {
     console.log(error);
@@ -43,7 +42,6 @@ class Comments extends React.Component {
             },{ headers: { 'Authorization': 'Token ' + cookie.load('token') } }
             )
             .then(function (response) {
-              console.log(response);
               window.location.reload(false);
 
             })

@@ -146,7 +146,7 @@ class FriendsList extends React.Component {
                 />
                 </Skeleton>
                 <div style={unfriendstyle} onClick={() => this.showDeleteConfirm(item.id,item.f1Id !== current_user ? item.f1Id : item.f2Id)}>
-                <Button type="danger" shape="round" size={'medium'} >Unfriend</Button>
+                <Button type="danger" shape="round" size={'default'} >Unfriend</Button>
                 </div>
             </List.Item>
             )}

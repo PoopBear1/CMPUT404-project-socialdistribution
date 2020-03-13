@@ -2,7 +2,7 @@ import React from 'react';
 import AuthorHeader from './components/AuthorHeader'
 import axios from 'axios';
 import cookie from 'react-cookies';
-import { Input, List} from 'antd';
+import { Input, List, Avatar, message} from 'antd';
 import {USERNAME_LIST} from "./utils/constants.js";
 
 const {Search} = Input;
@@ -32,24 +32,34 @@ class SearchPage extends React.Component{
     }
 
     updateSearch = (val) => {
-        this.setState({
-            value : val,
-            isloading : false
-        })
+        if(/\s/.test(val) | !val){
+            message.error('The author name cannot be empty!',1)
+        }else{
+            this.setState({
+                value : val,
+                isloading : false
+            })
+        }
     }
 
     handleClick = (usr) => {
-        console.log(usr)
         document.location.replace("/author/".concat(usr).concat("/posts"))
     }
 
+    usernameFilter = () => {
+        if(this.state.value){
+            return this.state.usernames.filter(
+                (username) => {
+                    return username.toLowerCase().indexOf(
+                        this.state.value.toLowerCase()) !== -1;
+                }
+            );
+        }else{
+            return [];
+        }
+    }
+
     render() {
-        let filterUsernames = this.state.usernames.filter(
-            (username) => {
-                return username.toLowerCase().indexOf(
-                    this.state.value.toLowerCase()) !== -1;
-            }
-        );
         return (
             <div>
                 <AuthorHeader/>
@@ -69,16 +79,22 @@ class SearchPage extends React.Component{
                     style={{marginLeft:"34.9%",width:"30%"}}
                     size="small"
                     bordered
-                    dataSource={filterUsernames.map((username) => {
+                    dataSource={this.usernameFilter().map((username) => {
                         return username;
                     })}
                     renderItem={item => 
                         <List.Item>
                             <List.Item.Meta
+                                avatar={
+                                    <Avatar size="small" style={{color: '#FFFFFF',backgroundColor: '#3991F7'}}
+                                    >{item[0].toUpperCase()}
+                                    </Avatar>
+                                }
                                 style={{width:"30%"}}
                                 title={<a href={"/author/".concat(item).concat("/posts")}>{item}</a>}
+                                onClick={() => document.location.replace("/author/".concat(item).concat("/posts"))}
                             />
-                            </List.Item>
+                        </List.Item>
                     }
                 /> : null}
                 </div>
