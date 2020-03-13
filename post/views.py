@@ -81,6 +81,8 @@ class PostsViewSet(viewsets.ModelViewSet):
             self.permission_classes = [
                 OwnerOrAdminPermissions,
             ]
+        elif self.action in ["post_comment"]:
+            self.permission_classes = [IsAuthenticated]
         else:
             self.permission_classes = [AllowAny]
         return super(PostsViewSet, self).get_permissions()
