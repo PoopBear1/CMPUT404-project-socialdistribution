@@ -16,15 +16,6 @@ script:
     - python manage.py migrate
     - python manage.py test
     - npm test
-
-deploy:
-    provider: heroku
-    api_key:
-        master:
-        develop:
-    app:
-        master: spongebook
-        develop: spongebook-develop
     
 notifications:
     email:
