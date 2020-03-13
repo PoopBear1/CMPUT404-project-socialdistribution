@@ -54,7 +54,7 @@ class AuthorHeader extends React.Component {
                     <Menu
                         theme="dark"
                         mode="horizontal"
-                        style={{ lineHeight: '64px' }}
+                        style={{ lineHeight: '64px',textAlign:"center"}}
                     >
                         <Menu.Item key="Home" >
                             <a href="/author/posts">
@@ -63,14 +63,9 @@ class AuthorHeader extends React.Component {
                             </a>
                         </Menu.Item>
 
-                        <Menu.Item style={{float: 'right'}} key="Logout">
-                            <a href="#!" onClick={this.logout}>
-                                <span>Logout</span>
-                            </a>
-                        </Menu.Item>
 
                         <SubMenu 
-                            style={{float: 'right'}}
+                           
                             key="Friends"
                             title={
                             <span>
@@ -90,17 +85,30 @@ class AuthorHeader extends React.Component {
                             </Menu.Item>
                         </SubMenu>
 
-                        <Menu.Item style={{float: 'right'}} key="Postinput">
+                        <Menu.Item  key="Postinput">
                             <a href="/new_post">
                                 <span>What's on your mind</span>
                             </a>
                         </Menu.Item>
 
-                        <Menu.Item style={{float: 'right'}} key="MyPost">
+                        <Menu.Item  key="MyPost">
                             <a onClick={this.handleMyProfile} href="#!">
                                 <span>My Profile</span>
                             </a>
                         </Menu.Item>
+
+                        <Menu.Item  key="Search">
+                            <a href="/author/search">
+                                <span>Search Author</span>
+                            </a>
+                        </Menu.Item>
+
+                        <Menu.Item  key="Logout">
+                            <a href="#!" onClick={this.logout}>
+                                <span>Logout</span>
+                            </a>
+                        </Menu.Item>
+                        
                     </Menu> 
                 </Header>
             </div>
