@@ -1,0 +1,34 @@
+language: python
+python:
+    - "3.6.8"
+node_js:
+    - "12.16.1"
+cache: 
+    npm: true
+    pip: true
+
+install:
+    - pip install -r requirements.txt
+    - npm install
+
+script:
+    - python manage.py makemigrations
+    - python manage.py migrate
+    - python manage.py test
+    - npm test
+
+deploy:
+    provider: heroku
+    api_key:
+        master:
+        develop:
+    app:
+        master: spongebook
+        develop: spongebook-develop
+    
+notifications:
+    email:
+        recipients:
+        - zlu@ualberta.ca # to be finished when testing done
+        on_success: never # default: change
+        on_failure: always # default: always

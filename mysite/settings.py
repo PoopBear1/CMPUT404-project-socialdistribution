@@ -189,4 +189,7 @@ REST_AUTH_SERIALIZERS = {
     "LOGIN_SERIALIZER": "user.serializers.CustomLoginSerializer",
 }
 
-django_heroku.settings(locals())
+if "HEROKU" in os.environ:
+    django_heroku.settings(locals())
+else:
+    django_heroku.settings(locals(), test_runner=False)
