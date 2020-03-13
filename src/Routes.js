@@ -16,6 +16,7 @@ import NodesPage from './NodesPage';
 import AuthorPage from './AuthorPage';
 import ProfilePage from './ProfilePage';
 import AddNodesPage from './AddNodesPage';
+import SearchPage from './SearchPage';
 
 const Routes = () => {
   return (
@@ -29,6 +30,7 @@ const Routes = () => {
       <Route path="/posts/:postid/comments" component={Comments} /> 
       <Route path="/author/:authorid/friends" component={FriendsList} />
       <Route path="/author/:authorid/friendrequest" component={FriendRequest} />
+      <Route path="/author/search" component={SearchPage} />
       <Route path="/new_post" component={PostInput} />
       <Route path="/posts/:postid/edit" component={PostEdit} />
       

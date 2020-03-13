@@ -11,3 +11,4 @@ export const CURRENT_USER_API = HOST + "/api/user/author/current_user/";
 export const FRIEND_API = HOST + "/api/friend/my_friends/";
 export const FRIEND_REQUEST_API = HOST + "/api/friend/friend_request/";
 export const FRIEND_BOOL = HOST + '/api/friend/if_friend/';
+export const USERNAME_LIST = HOST + '/api/user/author/username_list/';
