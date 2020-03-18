@@ -54,6 +54,7 @@ class UserSelf extends React.Component {
     let username = pathArray[2];
     axios.get(CURRENT_USER_API,
     {headers : headers}).then(res => {
+        if (res.status === 404)document.location.replace("/404")
         this.setState({
             currentUser: res.data.username,
         });
